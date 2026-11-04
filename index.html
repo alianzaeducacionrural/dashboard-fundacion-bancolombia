@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aliados Fundación Bancolombia · Comité de Cafeteros de Caldas</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--y:#FDDA24;--y2:#f5b800;--ink:#2c2a29;--bg:#f6f5f1;--card:#ffffff;--card2:#f3f1ea;--line:#e6e2d6;--tx:#2c2a29;--mut:#6b6760;--gold:#8a6500}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;
+background-image:radial-gradient(900px 500px at 85% -10%,rgba(253,218,36,.35),transparent 60%),radial-gradient(700px 400px at -10% 20%,rgba(96,165,250,.12),transparent 60%);background-attachment:fixed}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+header.hero{padding:28px 0 8px}
+.top{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between}
+.logo{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 16px;display:inline-flex;box-shadow:0 8px 30px rgba(253,218,36,.15)}
+.logo img{height:48px;display:block}
+.badge{font-size:12px;color:var(--mut);text-align:right}
+.badge b{color:var(--gold)}
+h1{font-size:clamp(30px,5vw,54px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:28px 0 10px}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--y) 62%);padding:0 .08em}
+.sub{color:var(--mut);max-width:680px;font-size:16px;line-height:1.5}
+.bar{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(246,245,241,.88);border-bottom:1px solid var(--line);margin-top:24px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip,select,.btn{font:inherit;font-size:13px;font-weight:600;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--tx);padding:8px 14px;cursor:pointer;transition:.15s}
+.chip:hover,select:hover{border-color:var(--y)}
+.chip.on{background:var(--y);color:var(--ink);border-color:var(--y)}
+select{max-width:230px}
+.lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:10px}
+.tab{background:none;border:0;color:var(--mut);font:inherit;font-weight:700;font-size:14px;padding:8px 14px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.tab.on{color:var(--ink);background:var(--y)}
+section{display:none;padding:24px 0 60px}
+section.on{display:block;animation:in .4s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-bottom:18px}
+.kpi{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:18px 20px;position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:var(--c,var(--y));opacity:.28}
+.kpi small{color:var(--mut);font-size:12px;font-weight:600}
+.kpi .v{white-space:nowrap;font-size:clamp(22px,2.2vw,29px);font-weight:800;letter-spacing:-.02em;margin-top:6px;color:var(--ink)}
+.kpi .n{font-size:12px;color:var(--mut);margin-top:2px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 20px;grid-column:span 6;min-width:0}
+.card.w4{grid-column:span 4}.card.w8{grid-column:span 8}.card.w12{grid-column:span 12}
+.card h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.card p.d{font-size:12px;color:var(--mut);margin-bottom:12px}
+.ch{position:relative;height:290px}.ch.tall{height:380px}
+@media(max-width:860px){.card,.card.w4,.card.w8{grid-column:span 12}}
+.prog{height:16px;background:var(--card2);border-radius:99px;overflow:hidden;margin:10px 0 6px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--y2),var(--y));border-radius:99px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{position:sticky;top:0;background:var(--card2);text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);padding:10px;cursor:pointer;white-space:nowrap}
+td{padding:9px 10px;border-top:1px solid var(--line)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{max-height:460px;overflow:auto;border-radius:12px;border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+input[type=search]{font:inherit;font-size:13px;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:8px 14px;min-width:220px}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.dl a{display:block;text-decoration:none;color:var(--tx);background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:16px;transition:.15s}
+.dl a:hover{border-color:var(--y);transform:translateY(-2px)}
+.dl b{display:block;color:var(--gold);margin-bottom:4px}.dl span{font-size:12px;color:var(--mut)}
+.note{font-size:12px;color:var(--mut);margin-top:14px}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--mut);font-size:12px;text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="top">
+    <div class="logo"><img src="logo.png" alt="Fundación Grupo Bancolombia"></div>
+    <div class="badge">Comité de Cafeteros de Caldas<br><b>Alianza Fundación Bancolombia · 2024–2026</b></div>
+  </div>
+  <h1>Fundación Bancolombia y la <em>educación rural de Caldas</em></h1>
+  <p class="sub">Lo que la Fundación Bancolombia ha hecho posible junto al Comité de Cafeteros: inversión, estudiantes técnicos y proyectos de empresarismo. Filtra, explora y descarga los datos.</p>
+</div></header>
+
+<div class="bar"><div class="wrap">
+  <div class="filters">
+    <span class="lbl">Año</span><div class="chips" id="fYear"></div>
+    <span class="lbl">Financiador</span><select id="fFin" aria-label="Financiador"></select>
+    <span class="lbl">Municipio</span><select id="fMun" aria-label="Municipio"></select>
+    <button class="chip" id="reset">Limpiar</button>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-t="resumen">Resumen</button>
+    <button class="tab" data-t="ejecucion">Aporte y ejecución 2026</button>
+    <button class="tab" data-t="tecnicos">Técnicos</button>
+    <button class="tab" data-t="empresarismo">Empresarismo</button>
+    <button class="tab" data-t="datos">Datos y descargas</button>
+  </div>
+</div></div>
+
+<main class="wrap">
+<section id="resumen" class="on">
+  <div class="kpis" id="kRes"></div>
+  <div class="grid">
+    <div class="card w12"><h3>Inversión por año</h3><div class="ch"><canvas id="cYear"></canvas></div></div>
+    <div class="card"><h3>Inversión por municipio</h3><div class="ch tall"><canvas id="cMun"></canvas></div></div>
+    <div class="card"><h3>Inversión por institución educativa</h3><div class="ch tall"><canvas id="cInst"></canvas></div></div>
+  </div>
+</section>
+
+<section id="tecnicos">
+  <div class="kpis" id="kTec"></div>
+  <div class="grid">
+    <div class="card w12"><h3>Seguimiento por cohorte</h3><p class="d">Resultado de cada grupo de estudiantes frente a la inversión en formación técnica registrada ese año (ignora el filtro de año; la inversión anual incluye acompañamiento a cohortes anteriores)</p>
+      <div class="scroll"><table id="tCoh"></table></div></div>
+    <div class="card w4"><h3>Estado de los estudiantes</h3><div class="ch"><canvas id="tEst"></canvas></div></div>
+    <div class="card w4"><h3>Género</h3><div class="ch"><canvas id="tGen"></canvas></div></div>
+    <div class="card w4"><h3>Estudiantes por año de ingreso</h3><div class="ch"><canvas id="tYear"></canvas></div></div>
+    <div class="card"><h3>Universidad aliada</h3><div class="ch"><canvas id="tUni"></canvas></div></div>
+    <div class="card"><h3>Programas más cursados</h3><div class="ch"><canvas id="tProg"></canvas></div></div>
+    <div class="card w12"><h3>Estudiantes por municipio</h3><div class="ch"><canvas id="tMun"></canvas></div></div>
+  </div>
+</section>
+
+<section id="empresarismo">
+  <div class="kpis" id="kEmp"></div>
+  <div class="grid">
+    <div class="card w4"><h3>Tipo de proyecto</h3><div class="ch"><canvas id="eTipo"></canvas></div></div>
+    <div class="card w4"><h3>Género</h3><div class="ch"><canvas id="eGen"></canvas></div></div>
+    <div class="card w4"><h3>Municipio</h3><div class="ch"><canvas id="eMun"></canvas></div></div>
+  </div>
+</section>
+
+<section id="ejecucion">
+  <div class="kpis" id="kEj"></div>
+  <div class="grid">
+    <div class="card w12"><h3>Técnico profesional · “La Universidad en el Campo”</h3>
+      <p class="d">2026 · 25 estudiantes · Fundación Bancolombia</p>
+      <div class="prog"><i id="ejBar" style="width:0"></i></div>
+      <p class="d" id="ejTxt"></p>
+      <div class="scroll"><table id="tEj"></table></div>
+    </div>
+  </div>
+  <p class="note">Aporte (meta): valor total de la propuesta en “SGTO Fund Bancolombia 2026”. Ejecutado: registros 2026 de Fundación Bancolombia en la base de datos. No responde a los filtros.</p>
+</section>
+
+<section id="datos">
+  <div class="card w12" style="margin-bottom:14px"><h3>Descargas</h3><p class="d">CSV con tildes (abre directo en Excel). Los datos publicados no incluyen nombres de personas.</p>
+    <div class="dl">
+      <a href="data/inversion.csv" download><b>⬇ Inversión completa</b><span>1.878 registros · municipio, proceso, actividad, valor</span></a>
+      <a href="data/tecnicos.csv" download><b>⬇ Técnicos completa</b><span>1.658 estudiantes · sin nombres</span></a>
+      <a href="data/empresarismo.csv" download><b>⬇ Empresarismo completa</b><span>44 proyectos · sin nombres</span></a>
+      <a href="#" id="dlFilt"><b>⬇ Inversión filtrada</b><span id="dlN"></span></a>
+    </div>
+  </div>
+  <div class="card w12"><h3>Explorador de inversión</h3><p class="d">Respeta los filtros de arriba · clic en un encabezado para ordenar</p>
+    <div class="row"><input type="search" id="q" placeholder="Buscar institución, actividad…" aria-label="Buscar"><span class="lbl" id="cnt"></span></div>
+    <div class="scroll"><table id="tbl"></table></div>
+  </div>
+</section>
+</main>
+<footer>Comité de Cafeteros de Caldas · Datos de la alianza con la Fundación Bancolombia</footer>
+
+<script>
+const $=s=>document.querySelector(s),COP=n=>'$'+Math.round(n).toLocaleString('es-CO'),M=n=>'$'+(n/1e6).toLocaleString('es-CO',{maximumFractionDigits:1})+' M',N=n=>n.toLocaleString('es-CO');
+const PAL=['#FDDA24','#60a5fa','#34d399','#c084fc','#fb7185','#fb923c','#22d3ee','#a3e635'];
+// mismo color para la misma categoría en todos los gráficos
+const CMAP={'Fundación Bancolombia':PAL[0],'Otros Aliados':PAL[1],Activo:PAL[2],Graduado:PAL[1],Desertor:PAL[4],Femenino:PAL[3],Masculino:PAL[1],Otro:PAL[5]};
+Chart.defaults.color='#6b6760';Chart.defaults.font.family="'Plus Jakarta Sans',sans-serif";Chart.defaults.borderColor='#e6e2d6';
+Chart.defaults.maintainAspectRatio=false;Chart.defaults.plugins.legend.labels.usePointStyle=true;
+const F={y:2026,f:'Fundación Bancolombia',m:''};let D,charts={},sortK='Valor',sortD=-1;
+const sum=(a,k)=>a.reduce((s,r)=>s+(r[k]||0),0);
+const grp=(a,k,v=()=>1)=>{const o={};a.forEach(r=>o[r[k]]=(o[r[k]]||0)+v(r));return o};
+const topN=(o,n)=>Object.entries(o).sort((a,b)=>b[1]-a[1]).slice(0,n);
+const fin=r=>r.Financiador==='Otros Aliados'?'Otros Aliados':'Fundación Bancolombia'; // LUNA cuenta como Fundación
+function sel(rows,o={}){return rows.filter(r=>(o.noYear||!F.y||r['Año']==F.y)&&(o.noFin||!F.f||fin(r)===F.f)&&(!F.m||r.Municipio===F.m))}
+// rubros de formación técnica: base del costo por estudiante (excluye empresarismo, capacitación docente, educación media, etc.)
+const TECP=['Focalización','Dotación','Desarrollo del plan curricular','Acompañamiento','Estrategia de permanencia'];
+const tecInv=I=>sum(I.filter(r=>TECP.includes(r.Proceso)),'Valor');
+// escribe el total de cada barra apilada encima de ella
+const TOT={id:'tot',afterDatasetsDraw(c,a,o){const{ctx}=c,vis=c.data.datasets.map((d,j)=>j).filter(j=>c.isDatasetVisible(j));if(!vis.length)return;
+ ctx.save();ctx.font="700 13px 'Plus Jakarta Sans',sans-serif";ctx.fillStyle='#2c2a29';ctx.textAlign='center';
+ c.data.labels.forEach((l,i)=>{const t=vis.reduce((s,j)=>s+c.data.datasets[j].data[i],0),el=vis.map(j=>c.getDatasetMeta(j).data[i]);
+  ctx.fillText((o.fmt||COP)(t),el[0].x,Math.min(...el.map(e=>e.y))-8)});ctx.restore()}};
+function fillMun(){const m=[...new Set([...D.inv,...D.tec,...D.emp].filter(r=>(!F.f||fin(r)===F.f)&&(!F.y||r['Año']==F.y)).map(r=>r.Municipio))].sort((a,b)=>a.localeCompare(b,'es'));
+ if(!m.includes(F.m))F.m='';$('#fMun').innerHTML='<option value="">Todos</option>'+m.map(v=>`<option${v===F.m?' selected':''}>${v}</option>`).join('')}
+function kpi(el,items){$(el).innerHTML=items.map(([l,v,n,c,fmt])=>`<div class="kpi" style="--c:${c||''}"><small>${l}</small><div class="v" data-v="${v}" data-f="${fmt||'n'}">0</div><div class="n">${n||''}</div></div>`).join('');
+ document.querySelectorAll(el+' .v').forEach(e=>{const t=+e.dataset.v,f=e.dataset.f==='n'?N:COP,t0=performance.now();(function s(now){const p=Math.min(1,(now-t0)/700);e.textContent=f(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(s)})(t0)})}
+function draw(id,type,labels,sets,opt={},plugins=[]){charts[id]&&charts[id].destroy();
+ charts[id]=new Chart($('#'+id),{type,plugins,data:{labels,datasets:sets},options:Object.assign({animation:{duration:600},plugins:{legend:{display:sets.length>1||type==='doughnut',position:type==='doughnut'?'bottom':'top'}}},opt)})}
+// barras sin eje de valores: el valor va escrito al final (horizontal) o encima (vertical) de cada barra
+const VAL={id:'val',afterDatasetsDraw(c,a,o){const{ctx}=c,h=c.options.indexAxis==='y';ctx.save();ctx.font="700 12px 'Plus Jakarta Sans',sans-serif";ctx.fillStyle='#2c2a29';
+ ctx.textBaseline=h?'middle':'bottom';ctx.textAlign=h?'left':'center';
+ c.getDatasetMeta(0).data.forEach((b,i)=>{const t=(o.fmt||N)(c.data.datasets[0].data[i]);h?ctx.fillText(t,b.x+8,b.y):ctx.fillText(t,b.x,b.y-6)});ctx.restore()}};
+const bar=(id,entries,color,horiz=true,fmt=N)=>draw(id,'bar',entries.map(e=>e[0].length>38?e[0].slice(0,36)+'…':e[0]),[{data:entries.map(e=>e[1]),backgroundColor:color||PAL[0],borderRadius:6}],
+ {indexAxis:horiz?'y':'x',layout:{padding:horiz?{right:fmt===COP?120:40}:{top:22}},scales:{[horiz?'x':'y']:{display:false},[horiz?'y':'x']:{grid:{display:false}}},
+  plugins:{legend:{display:false},val:{fmt},tooltip:{callbacks:{label:c=>fmt(c.raw)}}}},[VAL]);
+const barVal=(id,entries,color)=>bar(id,entries,color,true,COP);
+const donut=(id,o,cols)=>{const e=Object.entries(o);draw(id,'doughnut',e.map(x=>x[0]),[{data:e.map(x=>x[1]),backgroundColor:cols||e.map((x,i)=>CMAP[x[0]]||PAL[i]),borderWidth:0}],{cutout:'66%'})};
+function stack(id,rows,xk,sk,val,fmt,totals){const xs=[...new Set(rows.map(r=>r[xk]))].sort(),ss=[...new Set(rows.map(sk))];
+ draw(id,'bar',xs,ss.map((s,i)=>({label:s,borderRadius:4,data:xs.map(x=>rows.filter(r=>r[xk]===x&&sk(r)===s).reduce((a,r)=>a+val(r),0)),
+  backgroundColor:totals?c=>(CMAP[s]||PAL[i])+(F.y&&xs[c.dataIndex]!=F.y?'59':''):CMAP[s]||PAL[i]})),  // atenúa los años no filtrados
+ {layout:{padding:{top:26}},scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,display:false,grace:'12%'}},plugins:{legend:{display:ss.length>1},tot:{fmt:fmt?COP:N},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(fmt?COP(c.raw):N(c.raw))}}}},[TOT])}
+const pct=(a,f)=>a.length?Math.round(a.filter(f).length/a.length*100):0;
+
+function render(){
+ const I=sel(D.inv),T=sel(D.tec),E=sel(D.emp),IA=sel(D.inv,{noYear:1});
+ const des=T.filter(r=>r.Estado==='Desertor').length,quien=F.f||'la alianza';
+ kpi('#kRes',[...(F.y?[['Acumulado 2024–2026',sum(IA,'Valor'),quien,PAL[5],'c']]:[]),
+  [F.y?'Inversión '+F.y:'Inversión acumulada',sum(I,'Valor'),quien,PAL[0],'c'],
+  ['Estudiantes financiados',T.length,T.filter(r=>r.Estado==='Graduado').length+' ya graduados',PAL[1]],  ['Permanencia (%)',T.length?Math.round((T.length-des)/T.length*100):0,des+' estudiantes desertaron',PAL[2]],
+  ['Emprendimientos',E.length,COP(sum(E,'Valor desembolsado'))+' en capital semilla',PAL[4]]]);
+ stack('cYear',IA,'Año',fin,r=>r.Valor,M,true); barVal('cMun',topN(grp(I,'Municipio',r=>r.Valor),10),PAL[1]);
+ barVal('cInst',topN(grp(I,'Institución',r=>r.Valor),10),PAL[0]);
+ const TA=sel(D.tec,{noYear:1});
+ $('#tCoh').innerHTML='<thead><tr><th>Cohorte</th><th class="num">Estudiantes</th><th class="num">Activos</th><th class="num">Graduados</th><th class="num">Desertores</th><th class="num">Permanencia</th><th class="num">Inversión formación técnica</th><th class="num">Costo por estudiante</th></tr></thead><tbody>'+
+  [...new Set(TA.map(r=>r['Año']))].sort().map(y=>{const t=TA.filter(r=>r['Año']==y),c=k=>t.filter(r=>r.Estado===k).length,inv=tecInv(IA.filter(r=>r['Año']==y));
+   return `<tr${y==F.y?' style="background:#fdf6cc"':''}><td><b>${y}</b></td><td class="num">${t.length}</td><td class="num">${c('Activo')}</td><td class="num">${c('Graduado')}</td><td class="num">${c('Desertor')}</td><td class="num">${Math.round((t.length-c('Desertor'))/t.length*100)}%</td><td class="num">${COP(inv)}</td><td class="num">${COP(inv/t.length)}</td></tr>`}).join('')+'</tbody>';
+ kpi('#kTec',[['Estudiantes',T.length,'técnico profesional',PAL[0]],['Activos',T.filter(r=>r.Estado==='Activo').length,'cursando hoy',PAL[2]],['Graduados',T.filter(r=>r.Estado==='Graduado').length,'ya son técnicos',PAL[1]],['Deserción (%)',T.length?+(des/T.length*100).toFixed(1):0,des+' estudiantes',PAL[4]]]);
+ donut('tEst',grp(T,'Estado'));donut('tGen',grp(T,'Género'));
+ stack('tYear',T,'Año',r=>r.Estado,()=>1);
+ bar('tUni',topN(grp(T,'Universidad'),6),PAL[1],true);bar('tProg',topN(grp(T,'Programa'),8),PAL[2],true);bar('tMun',topN(grp(T,'Municipio'),15),PAL[0],false);
+ const iEmp=sum(I.filter(r=>r.Proceso==='Empresarismo'),'Valor');
+ kpi('#kEmp',[['Proyectos',E.length,'financiados',PAL[0]],['Capital semilla',sum(E,'Valor desembolsado'),'desembolsado a los jóvenes',PAL[2],'c'],['Inversión total del programa',iEmp,'capital + selección y acompañamiento',PAL[1],'c'],['Costo por emprendimiento',E.length?iEmp/E.length:0,'inversión total ÷ proyectos',PAL[5],'c'],['Mujeres (%)',pct(E,r=>r['Género']==='Femenino'),'de los emprendedores',PAL[3]]]);
+ donut('eTipo',grp(E,'Tipo de proyecto'));donut('eGen',grp(E,'Género'));bar('eMun',topN(grp(E,'Municipio'),8),PAL[4],true);
+ table();
+}
+function tableRows(){const q=$('#q').value.toLowerCase();let I=sel(D.inv);if(q)I=I.filter(r=>(r['Institución']+r.Actividad+r.Municipio+r.Proceso).toLowerCase().includes(q));
+ return I.sort((a,b)=>(a[sortK]>b[sortK]?1:-1)*sortD)}
+const COLS=['Año','Municipio','Institución','Financiador','Proceso','Actividad','Cantidad','Valor'],NUMC=['Cantidad','Valor'];
+function table(){const R=tableRows();$('#cnt').textContent=N(R.length)+' registros · '+COP(sum(R,'Valor'));$('#dlN').textContent=N(R.length)+' registros según filtros y búsqueda';
+ $('#tbl').innerHTML='<thead><tr>'+COLS.map(c=>`<th class="${NUMC.includes(c)?'num':''}" data-k="${c}">${c}${c===sortK?(sortD>0?' ▲':' ▼'):''}</th>`).join('')+'</tr></thead><tbody>'+
+ R.slice(0,300).map(r=>'<tr>'+COLS.map(c=>`<td class="${NUMC.includes(c)?'num':''}">${c==='Valor'?COP(r[c]):r[c]}</td>`).join('')+'</tr>').join('')+'</tbody>'+(R.length>300?`<caption style="padding:8px;font-size:12px;color:#6b6760">Mostrando 300 de ${N(R.length)} · descarga el CSV para ver todo</caption>`:'')}
+function csv(rows,cols){const e=v=>`"${String(v??'').replace(/"/g,'""')}"`;return '﻿'+cols.join(',')+'\n'+rows.map(r=>cols.map(c=>e(r[c])).join(',')).join('\n')}
+
+fetch('data/data.json').then(r=>r.json()).then(d=>{D=d;
+ const years=[...new Set(d.inv.map(r=>r['Año']))].sort();
+ $('#fYear').innerHTML=['Todos',...years].map(y=>`<button class="chip ${y===F.y?'on':''}" data-y="${y}">${y}</button>`).join('');
+ const opt=(el,vals)=>$(el).innerHTML='<option value="">Todos</option>'+vals.map(v=>`<option>${v}</option>`).join('');
+ opt('#fFin',['Fundación Bancolombia','Otros Aliados']);$('#fFin').value=F.f;
+ fillMun();
+ // Ejecución 2026: meta total por componente (SGTO) vs. ejecutado en la base (2026 · Fundación Bancolombia; ignora filtros)
+ const X26=d.inv.filter(r=>r['Año']==2026&&fin(r)==='Fundación Bancolombia');
+ const EJ=d.meta.map(m=>[m.componente,m.meta,m.proceso?sum(X26.filter(r=>r.Proceso===m.proceso),'Valor'):0]);
+ const mT=sum(EJ.map(x=>({v:x[1]})),'v'),eT=sum(EJ.map(x=>({v:x[2]})),'v'),av=mT?eT/mT*100:0,pc=v=>v.toLocaleString('es-CO',{maximumFractionDigits:1})+'%';
+ kpi('#kEj',[['Aporte Fundación 2026',mT,'',PAL[0],'c'],['Ejecutado',eT,'',PAL[2],'c'],['Saldo por ejecutar',mT-eT,'meta − ejecutado',PAL[4],'c'],['Avance (%)',Math.round(av),'de la meta',PAL[1]]]);
+ $('#ejBar').style.width=Math.min(av,100)+'%';$('#ejTxt').innerHTML=`<b style="color:var(--gold)">${pc(av)}</b> de la meta ejecutado (${COP(eT)} de ${COP(mT)})`;
+ $('#tEj').innerHTML='<thead><tr><th>Componente</th><th class="num">Aporte Fundación</th><th class="num">Ejecutado</th><th class="num">Saldo por ejecutar</th><th class="num">Avance</th></tr></thead><tbody>'+EJ.map(([c,a,e])=>`<tr><td>${c}</td><td class="num">${COP(a)}</td><td class="num">${COP(e)}</td><td class="num">${COP(a-e)}</td><td class="num">${a?Math.round(e/a*100)+'%':'—'}</td></tr>`).join('')+
+  `<tr style="font-weight:700"><td>Total</td><td class="num">${COP(mT)}</td><td class="num">${COP(eT)}</td><td class="num">${COP(mT-eT)}</td><td class="num">${Math.round(av)}%</td></tr></tbody>`;
+ render()}).catch(err=>{$('main').insertAdjacentHTML('afterbegin',`<p style="color:#fb7185;padding:20px">No se pudieron cargar los datos: ${err.message}</p>`)});
+document.addEventListener('click',e=>{const c=e.target;
+ if(c.dataset.y!==undefined){F.y=c.dataset.y==='Todos'?null:+c.dataset.y;document.querySelectorAll('#fYear .chip').forEach(x=>x.classList.toggle('on',x===c));fillMun();render()}
+ if(c.classList.contains('tab')){document.querySelectorAll('.tab,section').forEach(x=>x.classList.remove('on'));c.classList.add('on');$('#'+c.dataset.t).classList.add('on');render()}
+ if(c.id==='reset'){F.y=null;F.f=F.m='';$('#fFin').value='';fillMun();document.querySelectorAll('#fYear .chip').forEach((x,i)=>x.classList.toggle('on',!i));render()}
+ if(c.dataset.k){sortD=sortK===c.dataset.k?-sortD:-1;sortK=c.dataset.k;table()}
+ if(c.closest('#dlFilt')){e.preventDefault();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv(tableRows(),COLS)],{type:'text/csv;charset=utf-8'}));a.download='inversion_filtrada.csv';a.click()}});
+$('#fFin').onchange=e=>{F.f=e.target.value;fillMun();render()};$('#fMun').onchange=e=>{F.m=e.target.value;render()};$('#q').oninput=table;
+</script>
+</body>
+</html>
